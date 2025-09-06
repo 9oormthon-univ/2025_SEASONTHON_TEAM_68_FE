@@ -15,11 +15,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className="w-full font-pretendard antialiased">
+      <body className="w-full box-border font-pretendard antialiased">
         <SidebarProvider>
           <AppSidebar />
           <SidebarTrigger />
-          <main className="w-full flex flex-col p-12 gap-12">{children}</main>
+          {children}
         </SidebarProvider>
       </body>
     </html>

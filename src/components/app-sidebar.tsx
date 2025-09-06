@@ -1,3 +1,5 @@
+import logo from "@/../public/images/logo.svg";
+import { GradientButton } from "@/components/gradient-button";
 import {
   Sidebar,
   SidebarContent,
@@ -8,35 +10,21 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
+import { FileText, ListChecks } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 // Menu items.
 const items = [
   {
-    title: "Home",
-    url: "#",
-    icon: Home,
+    title: "할 일",
+    url: "/tasks",
+    icon: ListChecks,
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
+    title: "회의록",
+    url: "/docs",
+    icon: FileText,
   },
 ];
 
@@ -44,15 +32,24 @@ export function AppSidebar() {
   return (
     <Sidebar className="*:bg-foreground">
       <SidebarContent>
-        <SidebarGroup className="text-background">
-          <SidebarGroupLabel className="text-background">
-            LOGO & TODO
+        <SidebarGroup className="p-8">
+          <SidebarGroupLabel className="flex gap-4 items-center mb-12">
+            <Image src={logo} alt="Logo" width={33} height={33} />
+            <span className="font-pretendard font-semibold text-2xl text-gray-0">
+              1 Minuate
+            </span>
           </SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
+          <SidebarGroupContent className="flex flex-col gap-12">
+            <GradientButton>
+              <Link href="/">+ 회의록 분석하기</Link>
+            </GradientButton>
+            <SidebarMenu className="flex flex-col gap-6">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    className="flex items-center gap-2 text-gray-0"
+                    asChild
+                  >
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>

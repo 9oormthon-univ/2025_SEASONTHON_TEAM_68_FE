@@ -1,36 +1,51 @@
+"use client";
+
+import SleepyCharacter from "@/../public/images/sleepy_character.svg";
+import { GradientButton } from "@/components/gradient-button";
 import { Card } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Link from "next/link";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function Page() {
-  const now = new Date();
+  const [minuate, setMinuate] = useState("");
+  const [status, setStatus] = useState<"default" | "loading" | "ready">(
+    "default"
+  );
+  const [tasks, setTasks] = useState<string[]>();
+
+  function handleSubmit() {
+    // call ai api
+    return;
+  }
 
   return (
-    <>
+    <main className="w-full h-dvh flex flex-col justify-end p-12 gap-12">
       <section className="flex flex-col gap-5">
-        <h3 className="top-sb-20">
-          {now.getFullYear() +
-            "년 " +
-            (now.getMonth() + 1) +
-            "월 " +
-            now.getDate() +
-            "일"}
-        </h3>
+        <h3 className="top-sb-20">회의록 분석</h3>
         <Card>
-          <div className="flex items-center justify-between">
-            <span className="tab-m-14 text-gray-700">
-              회의록을 입력해주세요.
-            </span>
-            <Link
-              className="flex items-center justify-center w-40 h-10 tab-m-14 bg-linear-to-r from-[#F7F7F7] to-[#52FFAE] rounded-full"
-              href="/task"
-            >
-              할 일 추출하기 →
-            </Link>
+          <div className="flex flex-col gap-8 items-center">
+            {status === "default" ? (
+              <>
+                <textarea
+                  className="w-full max-h-96 resize-none outline-none tab-m-14 field-sizing-content"
+                  placeholder="회의록을 입력해주세요."
+                  value={minuate}
+                  onChange={(e) => setMinuate(e.target.value)}
+                />
+                <GradientButton className="self-end">
+                  할 일 추출하기 →
+                </GradientButton>
+              </>
+            ) : (
+              <>
+                <Image src={SleepyCharacter} alt="now loading" />
+                <p>회의록을 분석하는 중 입니다..</p>
+              </>
+            )}
           </div>
         </Card>
       </section>
-      <section>
+      {/* <section>
         <Card>
           <h3 className="top-sb-20">오늘 할 일</h3>
           <Tabs defaultValue="all">
@@ -47,7 +62,7 @@ export default function Page() {
             <TabsContent value="important">중요한 할 일</TabsContent>
           </Tabs>
         </Card>
-      </section>
-    </>
+      </section> */}
+    </main>
   );
 }
