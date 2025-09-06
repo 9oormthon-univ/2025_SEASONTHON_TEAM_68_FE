@@ -21,3 +21,10 @@ export type TaskContainer = {
   subtitle: string;
   color: string;
 };
+
+export type Note = {
+  id: string;
+  summary: string;
+  rawText: string;
+  createdAt: string;
+};
