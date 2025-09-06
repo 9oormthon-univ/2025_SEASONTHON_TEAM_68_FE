@@ -1,9 +1,16 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "../../public/fonts/pretendard/pretendard.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-pretendard: "Pretendard", sans-serif;
+  --color-gray-0: #fefefe;
+  --color-gray-300: #f3f3f2;
+  --color-gray-500: #cbcbcb;
+  --color-gray-700: #9b9b9b;
+  --color-gray-900: #1b1b1b;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -45,8 +52,8 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
+  --background: #f3f3f2;
+  --foreground: #1b1b1b;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
@@ -117,6 +124,47 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-pretendard;
   }
+}
+
+/* Typography */
+.top-sb-20 {
+  @apply font-semibold text-xl leading-[140%];
+}
+
+.title-sb-18 {
+  @apply font-semibold text-lg leading-[140%];
+}
+
+.title-m-20 {
+  @apply font-medium text-xl leading-[140%];
+}
+
+.tab-sb-14 {
+  @apply font-semibold text-sm leading-[180%];
+}
+
+.tab-m-14 {
+  @apply font-medium text-sm leading-[180%];
+}
+
+.body-r-14 {
+  @apply font-normal text-sm leading-[180%];
+}
+
+.tag-r-14 {
+  @apply font-normal text-sm;
+}
+
+.tag-r-12 {
+  @apply font-normal text-xs;
+}
+
+.tag-m-10 {
+  @apply font-medium text-[10px] leading-[180%];
+}
+
+.tag-sb-12 {
+  @apply font-semibold text-xs;
 }
