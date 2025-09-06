@@ -34,10 +34,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup className="p-8">
           <SidebarGroupLabel className="flex gap-4 items-center mb-12">
-            <Image src={logo} alt="Logo" width={33} height={33} />
-            <span className="font-pretendard font-semibold text-2xl text-gray-0">
-              1 Minuate
-            </span>
+            <Image src={logo} alt="Logo" />
           </SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col gap-12">
             <GradientButton>
