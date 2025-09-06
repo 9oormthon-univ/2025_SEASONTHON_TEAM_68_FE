@@ -1,23 +1,38 @@
 "use client";
 
-import SleepyCharacter from "@/../public/images/sleepy_character.svg";
 import Character from "@/../public/images/character.svg";
+import SleepyCharacter from "@/../public/images/sleepy_character.svg";
 import { GradientButton } from "@/components/gradient-button";
+import KanbanCandidate from "@/components/kanban-candidate";
 import { Card } from "@/components/ui/basic-card";
 import Image from "next/image";
 import { useState } from "react";
-import KanbanTask from "@/components/kanban-task";
-import KanbanCandidate from "@/components/kanban-candidate";
+import axios from "axios";
+import { TaskCandidate, TaskCandidateResponse } from "@/lib/type";
+import Link from "next/link";
 
 export default function Page() {
   const [minuate, setMinuate] = useState("");
   const [status, setStatus] = useState<"default" | "loading" | "ready">(
-    "ready"
+    "default"
   );
+  const [candidates, setCandidates] = useState<TaskCandidate[]>([]);
 
-  function handleSubmit() {
-    // TODO call ai api
-    return;
+  async function handleSubmit() {
+    setStatus("loading");
+    axios
+      .post("http://localhost:8080/api/categorizing/text", {
+        content: minuate,
+      })
+      .then(function (response) {
+        setCandidates(
+          mapDto(response.data.todos_by_person as TaskCandidateResponse[])
+        );
+        setStatus("ready");
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
@@ -58,30 +73,32 @@ export default function Page() {
           </div>
         </Card>
       </section>
-      <section>
-        <KanbanCandidate />
-      </section>
-      <section>
-        <KanbanTask />
-      </section>
-      {/* <section>
-        <Card>
-          <h3 className="top-sb-20">오늘 할 일</h3>
-          <Tabs defaultValue="all">
-            <TabsList className="relative">
-              <TabsTrigger value="all" className="z-10">
-                전체
-              </TabsTrigger>
-              <TabsTrigger value="important" className="z-10">
-                중요
-              </TabsTrigger>
-              <div className="absolute bottom-0 w-full border-b-2 border-gray-500" />
-            </TabsList>
-            <TabsContent value="all">전체 할 일</TabsContent>
-            <TabsContent value="important">중요한 할 일</TabsContent>
-          </Tabs>
-        </Card>
-      </section> */}
+      {status === "ready" && (
+        <section className="flex flex-col gap-8 items-center">
+          <KanbanCandidate defaultCandidates={candidates} />
+          <GradientButton className="self-end">
+            <Link href="/tasks">저장하기 →</Link>
+          </GradientButton>
+        </section>
+      )}
     </main>
   );
+}
+
+function mapDto(dtos: TaskCandidateResponse[]): TaskCandidate[] {
+  const columnMap: Record<string, TaskCandidate["column"]> = {
+    1: "DO",
+    2: "PLAN",
+    3: "DELEGATE",
+    4: "UNDEFINED",
+  };
+
+  return dtos.map((dto) => {
+    return {
+      id: crypto.randomUUID(),
+      name: dto.tasks.join(", "),
+      column: columnMap[dto.priority] || "UNDEFINED",
+      due: dto.due_dates ? new Date(dto.due_dates) : undefined,
+    };
+  });
 }

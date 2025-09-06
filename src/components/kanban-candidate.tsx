@@ -2,18 +2,21 @@
 
 import {
   KanbanBoard,
-  KanbanCard,
   KanbanCards,
   KanbanHeader,
   KanbanProvider,
 } from "@/components/ui/shadcn-io/kanban";
-import { useState } from "react";
-import { candidates as defaultCandidates, containers } from "@/lib/dummy";
+import { containers } from "@/lib/dummy";
+import { TaskCandidate } from "@/lib/type";
 import { cn, quadrantToColor } from "@/lib/utils";
-import KanbanItemCard from "./ui/kanban-card-task";
+import { useState } from "react";
 import KanbanCandidateCard from "./ui/kanban-card-candidate";
 
-const KanbanCandidate = () => {
+const KanbanCandidate = ({
+  defaultCandidates,
+}: {
+  defaultCandidates: TaskCandidate[];
+}) => {
   const [tasks, setTasks] = useState(defaultCandidates);
 
   return (
@@ -24,7 +27,7 @@ const KanbanCandidate = () => {
           <KanbanBoard
             id={column.id}
             key={column.id}
-            className={cn("relative", colors.bg)}
+            className={cn("relative min-h-96", colors.bg)}
           >
             <KanbanHeader>
               <div
@@ -40,6 +43,7 @@ const KanbanCandidate = () => {
             <KanbanCards id={column.id}>
               {(task: (typeof tasks)[number]) => (
                 <KanbanCandidateCard
+                  id={task.id}
                   key={task.id}
                   column={column}
                   task={task}

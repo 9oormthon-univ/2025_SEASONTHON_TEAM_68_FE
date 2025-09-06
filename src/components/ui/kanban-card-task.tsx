@@ -19,7 +19,9 @@ export default function KanbanTaskCard({ column, task, bulletColor }: Props) {
     >
       <li className="flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <span className={cn("w-1.5 h-1.5 rounded-full", bulletColor)} />
+          <span
+            className={cn("w-1.5 min-w-1.5 h-1.5 rounded-full", bulletColor)}
+          />
           <span className="tag-r-12">{task.name}</span>
         </div>
         <input

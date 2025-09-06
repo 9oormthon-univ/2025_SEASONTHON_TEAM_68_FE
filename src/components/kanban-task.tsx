@@ -22,7 +22,7 @@ const KanbanTask = () => {
           <KanbanBoard
             id={column.id}
             key={column.id}
-            className={cn("relative", colors.bg)}
+            className={cn("relative min-h-96", colors.bg)}
           >
             <KanbanHeader>
               <div

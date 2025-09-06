@@ -1,5 +1,11 @@
 export type MatrixQuadrant = "DO" | "PLAN" | "DELEGATE";
 
+export type TaskCandidateResponse = {
+  priority: string;
+  tasks: string[];
+  due_dates: string;
+};
+
 export type Task = {
   id: string;
   name: string;
