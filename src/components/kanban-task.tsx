@@ -6,18 +6,18 @@ import {
   KanbanCards,
   KanbanHeader,
   KanbanProvider,
-} from "@/components/ui/shadcn-io/kanban";
+} from "@/components/ui/kanban";
 import { useState } from "react";
-import { tasks as defaultTasks, containers } from "@/lib/dummy";
-import { cn, quadrantToColor } from "@/lib/utils";
+import { tasks , boards } from "@/lib/dummy";
+import { cn, tagToColor } from "@/lib/utils";
 import KanbanTaskCard from "./ui/kanban-card-task";
 
 const KanbanTask = () => {
-  const [tasks, setTasks] = useState(defaultTasks);
+  const [tasks, setTasks] = useState(tasks);
   return (
-    <KanbanProvider columns={containers} data={tasks} onDataChange={setTasks}>
+    <KanbanProvider columns={boards} data={tasks} onDataChange={setTasks}>
       {(column) => {
-        const colors = quadrantToColor(column.id);
+        const colors = tagToColor(column.id);
         return (
           <KanbanBoard
             id={column.id}

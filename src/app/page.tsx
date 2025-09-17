@@ -1,45 +1,44 @@
 "use client";
 
 import Character from "@/../public/images/character.svg";
-import SleepyCharacter from "@/../public/images/sleepy_character.svg";
+import CharacterSleepy from "@/../public/images/character_sleepy.svg";
 import { GradientButton } from "@/components/gradient-button";
 import KanbanCandidate from "@/components/kanban-candidate";
-import { Card } from "@/components/ui/basic-card";
+import { Card } from "@/components/ui/card";
+import { UnclassifiedTask } from "@/lib/type";
 import Image from "next/image";
-import { useState } from "react";
-import axios from "axios";
-import { TaskCandidate, TaskCandidateResponse } from "@/lib/type";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Page() {
   const [minuate, setMinuate] = useState("");
   const [status, setStatus] = useState<"default" | "loading" | "ready">(
     "default"
   );
-  const [candidates, setCandidates] = useState<TaskCandidate[]>([]);
+  const [candidates, setCandidates] = useState<UnclassifiedTask[]>([]);
 
   async function handleSubmit() {
     setStatus("loading");
-    axios
-      .post("http://localhost:8080/api/categorizing/text", {
-        content: minuate,
-      })
-      .then(function (response) {
-        setCandidates(
-          mapDto(response.data.todos_by_person as TaskCandidateResponse[])
-        );
-        setStatus("ready");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // axios
+    //   .post("http://localhost:8080/api/categorizing/text", {
+    //     content: minuate,
+    //   })
+    //   .then(function (response) {
+    //     setCandidates(
+    //       mapDto(response.data.todos_by_person as UnclassifiedTaskResponse[])
+    //     );
+    //     setStatus("ready");
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   }
 
   return (
     <main className="w-full h-dvh flex flex-col justify-end p-12 gap-12">
       {status == "default" && (
         <div className="flex flex-col h-full items-center justify-center gap-8">
-          <Image src={Character} alt="now loading" />
+          <Image src={Character} alt="welcome image" />
           <p className="text-gray-700">오늘의 회의는 어떠셨나요?</p>
         </div>
       )}
@@ -49,7 +48,7 @@ export default function Page() {
           <div className="flex flex-col gap-8 items-center">
             {status === "loading" ? (
               <>
-                <Image src={SleepyCharacter} alt="now loading" />
+                <Image src={CharacterSleepy} alt="now loading" />
                 <p>회의록을 분석하는 중 입니다..</p>
               </>
             ) : (
@@ -85,20 +84,3 @@ export default function Page() {
   );
 }
 
-function mapDto(dtos: TaskCandidateResponse[]): TaskCandidate[] {
-  const columnMap: Record<string, TaskCandidate["column"]> = {
-    1: "DO",
-    2: "PLAN",
-    3: "DELEGATE",
-    4: "UNDEFINED",
-  };
-
-  return dtos.map((dto) => {
-    return {
-      id: crypto.randomUUID(),
-      name: dto.tasks.join(", "),
-      column: columnMap[dto.priority] || "UNDEFINED",
-      due: dto.due_dates ? new Date(dto.due_dates) : undefined,
-    };
-  });
-}

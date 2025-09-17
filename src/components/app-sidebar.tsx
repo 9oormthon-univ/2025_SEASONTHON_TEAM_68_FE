@@ -9,7 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar";
+} from "@/components/ui/sidebar/sidebar";
 import { FileText, ListChecks } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

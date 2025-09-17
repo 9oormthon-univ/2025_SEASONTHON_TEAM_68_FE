@@ -1,9 +1,9 @@
-import { KanbanCard as PrimitiveKanbanCard } from "@/components/ui/shadcn-io/kanban";
-import { Task, TaskContainer } from "@/lib/type";
+import { KanbanCard as PrimitiveKanbanCard } from "@/components/ui/kanban";
+import { Task, Board } from "@/lib/type";
 import { cn } from "@/lib/utils";
 
 interface Props {
-  column: TaskContainer;
+  column: Board;
   task: Task;
   bulletColor: string;
 }
@@ -27,8 +27,8 @@ export default function KanbanTaskCard({ column, task, bulletColor }: Props) {
         <input
           className="self-end"
           type="checkbox"
-          checked={task.completed}
-          onChange={(e) => (task.completed = e.target.checked)}
+          checked={task.done}
+          onChange={(e) => (task.done = e.target.checked)}
         />
       </li>
     </PrimitiveKanbanCard>

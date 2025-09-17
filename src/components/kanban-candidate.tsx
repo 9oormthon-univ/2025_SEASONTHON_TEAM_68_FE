@@ -5,24 +5,24 @@ import {
   KanbanCards,
   KanbanHeader,
   KanbanProvider,
-} from "@/components/ui/shadcn-io/kanban";
-import { containers } from "@/lib/dummy";
-import { TaskCandidate } from "@/lib/type";
-import { cn, quadrantToColor } from "@/lib/utils";
+} from "@/components/ui/kanban";
+import { boards } from "@/lib/dummy";
+import { UnclassifiedTask } from "@/lib/type";
+import { cn, tagToColor } from "@/lib/utils";
 import { useState } from "react";
 import KanbanCandidateCard from "./ui/kanban-card-candidate";
 
 const KanbanCandidate = ({
   defaultCandidates,
 }: {
-  defaultCandidates: TaskCandidate[];
+  defaultCandidates: UnclassifiedTask[];
 }) => {
   const [tasks, setTasks] = useState(defaultCandidates);
 
   return (
-    <KanbanProvider columns={containers} data={tasks} onDataChange={setTasks}>
+    <KanbanProvider columns={boards} data={tasks} onDataChange={setTasks}>
       {(column) => {
-        const colors = quadrantToColor(column.id);
+        const colors = tagToColor(column.id);
         return (
           <KanbanBoard
             id={column.id}

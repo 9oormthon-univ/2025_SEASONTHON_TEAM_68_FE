@@ -1,11 +1,11 @@
-import { KanbanCard as PrimitiveKanbanCard } from "@/components/ui/shadcn-io/kanban";
-import { TaskCandidate, TaskContainer } from "@/lib/type";
+import { KanbanCard as PrimitiveKanbanCard } from "@/components/ui/kanban";
+import { UnclassifiedTask, Board } from "@/lib/type";
 import { cn } from "@/lib/utils";
 
 interface Props {
   id: string;
-  column: TaskContainer;
-  task: TaskCandidate;
+  column: Board;
+  task: UnclassifiedTask;
   bulletColor: string;
 }
 
