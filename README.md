@@ -11,16 +11,13 @@
 <br/><br/>
 
 ## 🔥 This is Our Team
-<div align="center">
 
 | PM | Design | Frontend | Backend |
 |:--:|:------:|:--------:|:-------:|
-| <img src="readme_assets/chaeyeon.png" width="150" alt="이채연" tabindex="-1" style="outline:none;border:0;"/> | <img src="readme_assets/jungyoon.jpg" width="150" alt="박정윤" tabindex="-1" style="outline:none;border:0;"/> | <img src="readme_assets/songmok.jpeg" width="150" alt="이송목" tabindex="-1" style="outline:none;border:0;"/> | <img src="readme_assets/chaejoo.jpeg" width="150" alt="이채주" tabindex="-1" style="outline:none;border:0;"/> |
+| <img src="readme_assets/chaeyeon.png" width="150" alt="이채연" tabindex="-1" style="outline:none;border:0;"/> | <img src="readme_assets/jungyoon.jpeg" width="150" alt="박정윤" tabindex="-1" style="outline:none;border:0;"/> | <img src="readme_assets/songmok.jpeg" width="150" alt="이송목" tabindex="-1" style="outline:none;border:0;"/> | <img src="readme_assets/chaejoo.jpeg" width="150" alt="이채주" tabindex="-1" style="outline:none;border:0;"/> |
 | 성균관대학교 4기 | 고려대학교 4기 | 성균관대학교 3기 | 상명대학교(천안) 4기 |
 | 이채연 | 박정윤 | 이송목 | 이채주 |
 | [@i-chaeyeon](https://github.com/i-chaeyeon) | - | [@fine-pine](https://github.com/fine-pine) | [@skxcv312](https://github.com/skxcv312) |
-
-</div>
 
 
 
