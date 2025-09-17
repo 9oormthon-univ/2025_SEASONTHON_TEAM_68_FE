@@ -1,36 +1,30 @@
-export type MatrixQuadrant = "DO" | "PLAN" | "DELEGATE";
-
-export type TaskCandidateResponse = {
-  priority: string;
-  tasks: string[];
-  due_dates: string;
-};
+export type TAG = "DO" | "PLAN" | "DELEGATE";
 
 export type Task = {
   id: string;
+  tag: TAG;
   name: string;
-  completed: boolean;
-  column: MatrixQuadrant;
-  due?: Date;
+  done: boolean;
+  due: Date;
 };
 
-export type TaskCandidate = {
+export type UnclassifiedTask = {
   id: string;
+  tag?: TAG;
   name: string;
-  column: MatrixQuadrant | "UNDEFINED";
   due?: Date;
 };
 
-export type TaskContainer = {
-  id: MatrixQuadrant;
+export type Board = {
+  id: TAG;
   name: string;
   subtitle: string;
-  color: string;
 };
 
 export type Note = {
   id: string;
   summary: string;
-  rawText: string;
-  createdAt: string;
+  content: string;
+  guide: string;
+  createdAt: Date;
 };

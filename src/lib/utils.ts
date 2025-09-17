@@ -1,17 +1,13 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { MatrixQuadrant } from "./type";
+import { TAG } from "./type";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function quadrantToColor(quadrant: MatrixQuadrant): {
-  bg: string;
-  text: string;
-  bullet: string;
-} {
-  switch (quadrant) {
+export function tagToColor(tag: TAG) {
+  switch (tag) {
     case "DO":
       return {
         bg: "bg-[#D1E0D9]",
