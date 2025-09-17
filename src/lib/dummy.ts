@@ -1,6 +1,6 @@
-import { Task, UnclassifiedTask, Board, Note } from "@/lib/type";
+import { Task, UnclassifiedTask, Note, TaskColumn } from "@/lib/type";
 
-export const boards: Board[] = [
+export const columns: TaskColumn[] = [
   {
     id: "DO",
     name: "Do",
@@ -21,41 +21,38 @@ export const boards: Board[] = [
 export const tasks: Task[] = [
   {
     id: "1",
-    tag: "DO",
+    column: "DO",
     name: "Design new homepage",
     done: false,
     due: new Date("2025-09-07"),
   },
   {
     id: "2",
-    tag: "PLAN",
+    column: "PLAN",
     name: "Implement authentication",
     done: false,
     due: new Date("2025-09-10"),
   },
   {
     id: "3",
-    tag: "DELEGATE",
+    column: "DELEGATE",
     name: "Set up database",
-    done: false,
+    done: true,
     due: new Date("2025-09-15"),
   },
 ];
 
-export const UnclassifiedTasks: UnclassifiedTask[] = [
+export const unclassifiedTasks: UnclassifiedTask[] = [
   {
-    id: "1",
-    tag: "DO",
+    column: "DO",
     name: "Design new homepage",
   },
   {
-    id: "2",
-    tag: "PLAN",
+    column: "PLAN",
     name: "Implement authentication",
   },
   {
-    id: "3",
-    tag: "DELEGATE",
+    column: "DELEGATE",
     name: "Set up database",
     due: new Date("2025-09-15"),
   },

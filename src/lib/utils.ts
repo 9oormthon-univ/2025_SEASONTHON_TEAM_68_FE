@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { TAG } from "./type";
+import { TAG, Task, UnclassifiedTask } from "./type";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -27,4 +27,12 @@ export function tagToColor(tag: TAG) {
         bullet: "bg-[#9B9B9B]",
       };
   }
+}
+
+export function paddingToTask(tasks: UnclassifiedTask[]): Task[] {
+  return tasks.map((task) => ({
+    id: crypto.randomUUID(),
+    ...task,
+    done: false,
+  }));
 }

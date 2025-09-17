@@ -2,20 +2,19 @@ export type TAG = "DO" | "PLAN" | "DELEGATE";
 
 export type Task = {
   id: string;
-  tag: TAG;
+  column: string;
   name: string;
   done: boolean;
-  due: Date;
+  due?: Date;
 };
 
 export type UnclassifiedTask = {
-  id: string;
-  tag?: TAG;
+  column: string;
   name: string;
   due?: Date;
 };
 
-export type Board = {
+export type TaskColumn = {
   id: TAG;
   name: string;
   subtitle: string;
