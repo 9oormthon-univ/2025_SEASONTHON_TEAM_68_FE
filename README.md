@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+>  2025 구름톤유니브 시즌톤🍁 68팀 언프레임의 FE 레포지토리입니다.
 
-## Getting Started
+[1min BE/AI 레포지토리 바로가기](https://github.com/9oormthon-univ/2025_SEASONTHON_TEAM_68_BE)
 
-First, run the development server:
+# 😎하나의 회의록에서 최고의 생산성을, 1min!😎
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1min은 회의에서 도출된 Action Item을 기반으로 **회의의 생산성을 진단**하고,  
+**우선순위에 따른 할 일 관리**를 통해 신속하게 업무를 시작하도록 돕는 정보 과잉 해결 솔루션입니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![image](readme_assets/main.png)
+<br/><br/>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔥 This is Our Team
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| PM | Design | Frontend | Backend |
+|:--:|:------:|:--------:|:-------:|
+| <img src="readme_assets/chaeyeon.png" width="150"/> | <img src="이미지_URL2" width="150"/> | <img src="readme_assets/songmok.jpeg" width="150"/> | <img src="readme_assets/chaejoo.jpeg" width="150"/> |
+| 성균관대학교 4기 | 고려대학교 4기 | 성균관대학교 3기 | 상명대학교(천안) 4기 |
+| 이채연 | 박정윤 | 이송목 | 이채주 |
+| [@i-chaeyeon](https://github.com/i-chaeyeon) | [-]() | [@fine-pine](https://github.com/fine-pine) | [@skxcv312](https://github.com/skxcv312) |
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Tech Stacks
+<img src="readme_assets/typescript.png" width="40"/> <img src="readme_assets/nextjs.svg" width="40"/> <img src="readme_assets/spring.svg" width="40"/> <img src="readme_assets/openai.webp" width="40"/> 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+----
+## 😎 서비스 소개
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 😎 기능 소개
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Service Architecture
+
