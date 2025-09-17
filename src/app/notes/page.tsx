@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/accordion";
 
 export default async function Page() {
-
   return (
     <main className="w-full flex flex-col p-12 gap-12">
       {notes.map((note) => (
