@@ -1,26 +1,9 @@
-import { Task, UnclassifiedTask, Note, TaskColumn } from "@/lib/type";
+import { NoteType, TaskType } from "@/lib/type";
 
-export const columns: TaskColumn[] = [
-  {
-    id: "DO",
-    name: "Do",
-    subtitle: "진행하기",
-  },
-  {
-    id: "PLAN",
-    name: "Plan",
-    subtitle: "계획하기",
-  },
-  {
-    id: "DELEGATE",
-    name: "Delegate",
-    subtitle: "위임하기",
-  },
-];
-
-export const tasks: Task[] = [
+export const tasks: TaskType[] = [
   {
     id: "1",
+    tag: "DO",
     column: "DO",
     name: "Design new homepage",
     done: false,
@@ -28,6 +11,7 @@ export const tasks: Task[] = [
   },
   {
     id: "2",
+    tag: "PLAN",
     column: "PLAN",
     name: "Implement authentication",
     done: false,
@@ -35,30 +19,86 @@ export const tasks: Task[] = [
   },
   {
     id: "3",
+    tag: "DELEGATE",
     column: "DELEGATE",
     name: "Set up database",
     done: true,
     due: new Date("2025-09-15"),
   },
+  {
+    id: "4",
+    tag: "DO",
+    column: "LATE",
+    name: "Create marketing plan",
+    done: false,
+    due: new Date("2025-09-20"),
+  }
 ];
 
-export const unclassifiedTasks: UnclassifiedTask[] = [
+export const unclassifiedTasks: TaskType[] = [
   {
-    column: "DO",
+    id: "5",
+    tag: "UNSORTED",
+    column: "UNSORTED",
     name: "Design new homepage",
+    done: false,
+    due: new Date("2025-09-07"),
   },
   {
+    id: "6",
+    tag: "UNSORTED",
+    column: "UNSORTED",
+    name: "Fix bugs in user profile",
+    done: false,
+  },
+  {
+    id: "7",
+    tag: "UNSORTED",
+    column: "UNSORTED",
+    name: "Update user documentation",
+    done: false,
+  },
+  {
+    id: "8",
+    tag: "UNSORTED",
+    column: "UNSORTED",
+    name: "Conduct user testing",
+    done: false,
+  },
+  {
+    id: "9",
+    tag: "UNSORTED",
+    column: "UNSORTED",
+    name: "Optimize database queries",
+    done: false,
+  },
+  {
+    id: "10",
+    tag: "DO",
+    column: "DO",
+    name: "Create marketing plan",
+    done: false,
+    due: new Date("2025-09-07"),
+  },
+  {
+    id: "11",
+    tag: "PLAN",
     column: "PLAN",
     name: "Implement authentication",
+    done: false,
+    due: new Date("2025-09-07"),
   },
   {
+    id: "12",
+    tag: "DELEGATE",
     column: "DELEGATE",
     name: "Set up database",
+    done: false,
     due: new Date("2025-09-15"),
   },
 ];
 
-export const notes: Note[] = [
+export const notes: NoteType[] = [
   {
     id: "1",
     summary: "Meeting with the design team",

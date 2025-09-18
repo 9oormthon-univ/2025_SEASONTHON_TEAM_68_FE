@@ -1,23 +1,27 @@
 import { KanbanBoard, KanbanCards } from "@/components/ui/kanban";
-import { Task, TaskColumn } from "@/lib/type";
-import { cn, tagToColor } from "@/lib/utils";
+import { TaskColumnType, TaskType } from "@/lib/type";
+import { cn, columnToColor } from "@/lib/utils";
 import KanbanTask from "./task";
 
 interface Props {
-  column: TaskColumn;
+  column: TaskColumnType;
+  taskBgColor: string;
   showCheckbox?: boolean;
   showDate?: boolean;
+  filter?: (task: TaskType) => boolean;
 }
 
 export default function DragAndDropColumn({
   column,
-  className,
-  children,
+  taskBgColor,
   showCheckbox = false,
   showDate = false,
+  className,
+  children,
   ...props
 }: Props & React.HTMLAttributes<HTMLDivElement>) {
-  const color = tagToColor(column.id);
+  const color = columnToColor(column.id);
+
   return (
     <KanbanBoard
       id={column.id}
@@ -26,15 +30,14 @@ export default function DragAndDropColumn({
       {...props}
     >
       {children}
-      <KanbanCards id={column.id}>
-        {(task: Task) => (
+      <KanbanCards column={column}>
+        {(task: TaskType) => (
           <KanbanTask
             key={task.id}
-            column={column}
             initTask={task}
-            bulletColor={color.bullet}
             showCheckbox={showCheckbox}
             showDate={showDate}
+            bgColor={taskBgColor}
           />
         )}
       </KanbanCards>

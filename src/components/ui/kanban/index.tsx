@@ -1,5 +1,9 @@
 "use client";
 
+import handler from "@/../public/icons/handler.svg";
+import { ScrollArea, ScrollBar } from "@/components/ui/sidebar/scroll-area";
+import { TaskColumnType, TaskType } from "@/lib/type";
+import { cn, columnToColor } from "@/lib/utils";
 import type {
   Announcements,
   DndContextProps,
@@ -20,6 +24,7 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import Image from "next/image";
 import {
   createContext,
   type HTMLAttributes,
@@ -29,29 +34,14 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import tunnel from "tunnel-rat";
-import { ScrollArea, ScrollBar } from "@/components/ui/sidebar/scroll-area";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-import handler from "@/../public/icons/handler.svg";
 
 const t = tunnel();
 
 export type { DragEndEvent } from "@dnd-kit/core";
 
-type KanbanItemProps = {
-  id: string;
-  name: string;
-  column: string;
-} & Record<string, unknown>;
-
-type KanbanColumnProps = {
-  id: string;
-  name: string;
-} & Record<string, unknown>;
-
 type KanbanContextProps<
-  T extends KanbanItemProps = KanbanItemProps,
-  C extends KanbanColumnProps = KanbanColumnProps
+  T extends TaskType = TaskType,
+  C extends TaskColumnType = TaskColumnType
 > = {
   columns: C[];
   data: T[];
@@ -78,7 +68,7 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
   return (
     <div
       className={cn(
-        "flex size-full min-h-40 flex-col divide-y rounded-md border bg-secondary text-xs shadow-sm ring-2 transition-all",
+        "flex size-full min-h-40 flex-col gap-7 divide-y rounded-md border bg-secondary text-xs shadow-sm ring-2 transition-all",
         className
       )}
       ref={setNodeRef}
@@ -88,12 +78,12 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
   );
 };
 
-export type KanbanCardProps<T extends KanbanItemProps = KanbanItemProps> = T & {
+export type KanbanCardProps<T extends TaskType = TaskType> = T & {
   children?: ReactNode;
   className?: string;
 };
 
-export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
+export const KanbanCard = <T extends TaskType = TaskType>({
   id,
   name,
   children,
@@ -162,19 +152,22 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
   );
 };
 
-export type KanbanCardsProps<T extends KanbanItemProps = KanbanItemProps> =
-  Omit<HTMLAttributes<HTMLDivElement>, "children" | "id"> & {
-    children: (item: T) => ReactNode;
-    id: string;
-  };
+export type KanbanCardsProps<T extends TaskType = TaskType> = Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children" | "id"
+> & {
+  column: TaskColumnType;
+  children: (item: T) => ReactNode;
+};
 
-export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
+export const KanbanCards = <T extends TaskType = TaskType>({
+  column,
   children,
   className,
   ...props
 }: KanbanCardsProps<T>) => {
   const { data } = useContext(KanbanContext) as KanbanContextProps<T>;
-  const filteredData = data.filter((item) => item.column === props.id);
+  const filteredData = data.filter(column.filter);
   const items = filteredData.map((item) => item.id);
 
   return (
@@ -193,8 +186,8 @@ export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
 };
 
 export type KanbanProviderProps<
-  T extends KanbanItemProps = KanbanItemProps,
-  C extends KanbanColumnProps = KanbanColumnProps
+  T extends TaskType = TaskType,
+  C extends TaskColumnType = TaskColumnType
 > = Omit<DndContextProps, "children"> & {
   children: ReactNode;
   className?: string;
@@ -207,8 +200,8 @@ export type KanbanProviderProps<
 };
 
 export const KanbanProvider = <
-  T extends KanbanItemProps = KanbanItemProps,
-  C extends KanbanColumnProps = KanbanColumnProps
+  T extends TaskType = TaskType,
+  C extends TaskColumnType = TaskColumnType
 >({
   children,
   onDragStart,
@@ -299,13 +292,13 @@ export const KanbanProvider = <
     },
     onDragOver({ active, over }) {
       const { name } = data.find((item) => item.id === active.id) ?? {};
-      const newColumn = columns.find((column) => column.id === over?.id)?.name;
+      const newColumn = columns.find((column) => column.id === over?.id)?.en;
 
       return `Dragged the card "${name}" over the "${newColumn}" column`;
     },
     onDragEnd({ active, over }) {
       const { name } = data.find((item) => item.id === active.id) ?? {};
-      const newColumn = columns.find((column) => column.id === over?.id)?.name;
+      const newColumn = columns.find((column) => column.id === over?.id)?.en;
 
       return `Dropped the card "${name}" into the "${newColumn}" column`;
     },

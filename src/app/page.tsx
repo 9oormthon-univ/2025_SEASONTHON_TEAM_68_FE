@@ -1,18 +1,18 @@
 "use client";
 
+import Character from "@/../public/images/character.svg";
 import Button from "@/components/button";
 import { Card } from "@/components/ui/card";
-import UnclassifiedBoard from "@/components/unclassified-board";
-import { UnclassifiedTask } from "@/lib/type";
-import { useState } from "react";
+import UnclassifiedTaskBoard from "@/components/unclassified-task-board";
 import { unclassifiedTasks as initTasks } from "@/lib/dummy";
+import { TaskType } from "@/lib/type";
 import Image from "next/image";
-import Character from "@/../public/images/character.svg";
+import { useState } from "react";
 
 export default function Page() {
   const [status, setStatus] = useState<"default" | "loading" | "done">("done");
   const [note, setNote] = useState("");
-  const [tasks, setTasks] = useState<UnclassifiedTask[]>(initTasks);
+  const [tasks, setTasks] = useState<TaskType[]>(initTasks);
 
   async function extractTasks() {
     setStatus("loading");
@@ -65,7 +65,7 @@ export default function Page() {
       </section>
       {status === "done" && (
         <section className="flex flex-col gap-8 items-center">
-          <UnclassifiedBoard initTasks={tasks} />
+          <UnclassifiedTaskBoard initTasks={tasks} />
         </section>
       )}
     </main>

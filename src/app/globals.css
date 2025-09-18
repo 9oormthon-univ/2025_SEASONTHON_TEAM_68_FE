@@ -136,6 +136,10 @@
   @apply font-semibold text-xl leading-[140%];
 }
 
+.title-sb-24 {
+  @apply font-semibold text-2xl leading-[140%];
+}
+
 .title-sb-18 {
   @apply font-semibold text-lg leading-[140%];
 }

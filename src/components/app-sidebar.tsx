@@ -36,11 +36,11 @@ export function AppSidebar() {
           <SidebarGroupLabel className="flex gap-4 items-center mb-12">
             <Image src={logo} alt="Logo" />
           </SidebarGroupLabel>
-          <SidebarGroupContent className="flex flex-col gap-12">
+          <SidebarGroupContent className="flex flex-col gap-10">
             <Button variant="gradient" className="w-full h-12">
               <Link href="/">+ 회의록 분석하기</Link>
             </Button>
-            <SidebarMenu className="flex flex-col gap-6">
+            <SidebarMenu className="flex flex-col gap-2.5">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton

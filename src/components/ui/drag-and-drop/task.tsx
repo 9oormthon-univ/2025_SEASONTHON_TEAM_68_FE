@@ -1,33 +1,32 @@
 "use client";
 
 import calendar from "@/../public/icons/calendar.svg";
-import calendar_value from "@/../public/icons/calendar_value.svg";
+import calendar_blue from "@/../public/icons/calendar_blue.svg";
 import checkbox from "@/../public/icons/checkbox.svg";
 import checkbox_checked from "@/../public/icons/checkbox_checked.svg";
 import { KanbanCard as PrimitiveKanbanCard } from "@/components/ui/kanban";
-import { Task, TaskColumn } from "@/lib/type";
-import { cn } from "@/lib/utils";
+import { TaskType } from "@/lib/type";
+import { cn, columnToColor } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 interface Props {
-  column: TaskColumn;
+  initTask: TaskType;
+  bgColor: string;
   showDate?: boolean;
   showCheckbox?: boolean;
-  initTask: Task;
-  bulletColor: string;
 }
 
 export default function DragAndDropTask({
-  column,
-  bulletColor,
   initTask,
+  bgColor,
   showCheckbox = false,
   showDate = false,
 }: Props) {
-  const [task, setTasks] = useState(initTask);
+  // TODO test
+  const [task, setTask] = useState<TaskType>(initTask);
   const [edit, setEdit] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -50,16 +49,16 @@ export default function DragAndDropTask({
 
   return (
     <PrimitiveKanbanCard
-      column={column.id}
-      id={task.id}
-      key={task.id}
-      name={task.name}
-      className="border-none rounded-xl bg-gray-300"
+      {...task}
+      className={cn("border-none rounded-xl", bgColor)}
     >
       <div className="flex-1 flex items-center">
         <div className="flex-1 flex items-center gap-1">
           <span
-            className={cn("w-1.5 min-w-1.5 h-1.5 rounded-full", bulletColor)}
+            className={cn(
+              "w-1.5 min-w-1.5 h-1.5 rounded-full",
+              columnToColor(task.column).bullet
+            )}
           />
           {edit ? (
             <input
@@ -67,7 +66,7 @@ export default function DragAndDropTask({
               className="tag-r-12 w-full"
               value={task.name}
               onChange={(e) =>
-                setTasks((prev) => ({ ...prev, name: e.target.value }))
+                setTask((prev) => ({ ...prev, name: e.target.value }))
               }
             />
           ) : (
@@ -86,7 +85,7 @@ export default function DragAndDropTask({
             src={task.done ? checkbox_checked : checkbox}
             alt="checkbox"
             className="w-4 h-4 cursor-pointer"
-            onClick={() => setTasks((prev) => ({ ...prev, done: !prev.done }))}
+            onClick={() => setTask((prev) => ({ ...prev, done: !prev.done }))}
           />
         )}
         {showDate && (
@@ -94,11 +93,11 @@ export default function DragAndDropTask({
             className="flex items-center justify-center"
             selected={task.due}
             onChange={(date) =>
-              setTasks((prev) => ({ ...prev, due: date ?? undefined }))
+              setTask((prev) => ({ ...prev, due: date || undefined }))
             }
             customInput={
               <Image
-                src={task.due ? calendar_value : calendar}
+                src={task.due ? calendar_blue : calendar}
                 alt="calendar"
                 className="w-6 h-6 p-0.5 pt-1.25 cursor-pointer"
               />
