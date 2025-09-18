@@ -1,24 +1,24 @@
 "use client";
 
+import calendar from "@/../public/icons/calendar.svg";
+import calendar_value from "@/../public/icons/calendar_value.svg";
 import checkbox from "@/../public/icons/checkbox.svg";
 import checkbox_checked from "@/../public/icons/checkbox_checked.svg";
 import { KanbanCard as PrimitiveKanbanCard } from "@/components/ui/kanban";
-import { Task, TaskList } from "@/lib/type";
+import { Task, TaskColumn } from "@/lib/type";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import calendar from "@/../public/icons/calendar.svg";
-import calendar_value from "@/../public/icons/calendar_value.svg";
 
 interface Props {
-  column: TaskList;
+  column: TaskColumn;
   task: Task;
   bulletColor: string;
 }
 
-export default function Component({
+export default function DragAndDropTask({
   column,
   task: initTask,
   bulletColor,
@@ -41,7 +41,7 @@ export default function Component({
 
   const handleEdit = () => {
     setEdit(false);
-    // validate and save
+    // TODO validate and save
   };
 
   return (

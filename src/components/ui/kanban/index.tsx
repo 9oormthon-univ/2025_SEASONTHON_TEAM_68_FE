@@ -70,7 +70,7 @@ export type KanbanBoardProps = {
 };
 
 export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
-  const { isOver, setNodeRef } = useDroppable({
+  const { setNodeRef } = useDroppable({
     id,
   });
 
@@ -78,7 +78,6 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
     <div
       className={cn(
         "flex size-full min-h-40 flex-col divide-y rounded-md border bg-secondary text-xs shadow-sm ring-2 transition-all",
-        isOver ? "ring-primary" : "ring-transparent",
         className
       )}
       ref={setNodeRef}
@@ -180,17 +179,11 @@ export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
   );
 };
 
-export type KanbanHeaderProps = HTMLAttributes<HTMLDivElement>;
-
-export const KanbanHeader = ({ className, ...props }: KanbanHeaderProps) => (
-  <div className={cn("m-0 p-2 font-semibold text-sm", className)} {...props} />
-);
-
 export type KanbanProviderProps<
   T extends KanbanItemProps = KanbanItemProps,
   C extends KanbanColumnProps = KanbanColumnProps
 > = Omit<DndContextProps, "children"> & {
-  children: (column: C) => ReactNode;
+  children: ReactNode;
   className?: string;
   columns: C[];
   data: T[];
@@ -327,7 +320,7 @@ export const KanbanProvider = <
             className
           )}
         >
-          {columns.map((column) => children(column))}
+          {children}
         </div>
         {typeof window !== "undefined" &&
           createPortal(

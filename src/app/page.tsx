@@ -1,10 +1,9 @@
 "use client";
-import Kanban from "@/components/board";
 import { GradientButton } from "@/components/button";
 import { Card } from "@/components/ui/card";
 import CharacterWrapper from "@/components/ui/character-wrapper";
+import UnclassifiedBoard from "@/components/unclassified-board";
 import { UnclassifiedTask } from "@/lib/type";
-import { paddingToTask } from "@/lib/utils";
 import { useState } from "react";
 
 export default function Page() {
@@ -46,7 +45,7 @@ export default function Page() {
         </Card>
       </section>
       <section className="flex flex-col gap-8 items-center">
-        {status === "done" && <Kanban />}
+        <UnclassifiedBoard />
       </section>
     </main>
   );
