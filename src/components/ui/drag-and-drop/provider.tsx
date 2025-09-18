@@ -1,6 +1,6 @@
 "use client";
 
-import { GradientButton } from "@/components/button";
+import Button from "@/components/button";
 import { KanbanProvider } from "@/components/ui/kanban";
 import { columns } from "@/lib/dummy";
 import { Task } from "@/lib/type";
@@ -23,9 +23,9 @@ export default function DragAndDropProvider({ initTasks, children }: Props) {
       <KanbanProvider columns={columns} data={tasks} onDataChange={setTasks}>
         {children}
       </KanbanProvider>
-      <GradientButton className="self-end" onClick={saveTasks}>
+      <Button variant="gradient" className="self-end" onClick={saveTasks}>
         <Link href="/done">저장하기 →</Link>
-      </GradientButton>
+      </Button>
     </>
   );
 }

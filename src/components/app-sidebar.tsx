@@ -1,5 +1,5 @@
 import logo from "@/../public/images/logo.svg";
-import { GradientButton } from "@/components/button";
+import Button from "@/components/button";
 import {
   Sidebar,
   SidebarContent,
@@ -37,9 +37,9 @@ export function AppSidebar() {
             <Image src={logo} alt="Logo" />
           </SidebarGroupLabel>
           <SidebarGroupContent className="flex flex-col gap-12">
-            <GradientButton className="w-full h-12">
+            <Button variant="gradient" className="w-full h-12">
               <Link href="/">+ 회의록 분석하기</Link>
-            </GradientButton>
+            </Button>
             <SidebarMenu className="flex flex-col gap-6">
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
