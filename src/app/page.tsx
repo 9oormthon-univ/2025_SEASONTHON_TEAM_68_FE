@@ -8,14 +8,44 @@ import { unclassifiedTasks as initTasks } from "@/lib/dummy";
 import { TaskType } from "@/lib/type";
 import Image from "next/image";
 import { useState } from "react";
+import { DagloAPI } from "@/lib/daglo/daglo-api.module";
+import Microphone from "@/../public/icons/mic.svg";
 
 export default function Page() {
-  const [status, setStatus] = useState<"default" | "loading" | "done">("done");
+  const [status, setStatus] = useState<"default" | "loading" | "done">(
+    "default"
+  );
   const [note, setNote] = useState("");
   const [tasks, setTasks] = useState<TaskType[]>(initTasks);
 
   async function extractTasks() {
     setStatus("loading");
+  }
+
+  async function getAudio() {
+    const client = new DagloAPI({
+      apiToken: process.env.NEXT_PUBLIC_DAGLO_API_TOKEN,
+    });
+
+    const transcriber = client.stream.transcriber();
+    transcriber.on("transcript", (data: any) => {
+      if (data?.text) {
+        setNote((prev) => prev + " " + data.text);
+      }
+    });
+
+    let stream;
+
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (err) {
+      console.log("The following error occured: " + err);
+      return alert("getUserMedia not supported on your browser");
+    }
+
+    if (stream) {
+      transcriber.connect(stream);
+    }
   }
 
   return (
@@ -50,14 +80,23 @@ export default function Page() {
                   onChange={(e) => setNote(e.target.value)}
                   disabled={status !== "default"}
                 />
-                <Button
-                  variant="gradient"
-                  className="self-end"
-                  onClick={extractTasks}
-                  disabled={note.length === 0 || status !== "default"}
-                >
-                  할 일 추출하기 →
-                </Button>
+                <div className="w-full flex items-end justify-between">
+                  <button
+                    onClick={getAudio}
+                    className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-300"
+                    disabled={status !== "default"}
+                  >
+                    <Image src={Microphone} alt="audio icon" />
+                  </button>
+                  <Button
+                    variant="gradient"
+                    className="self-end"
+                    onClick={extractTasks}
+                    disabled={note.length === 0 || status !== "default"}
+                  >
+                    할 일 추출하기 →
+                  </Button>
+                </div>
               </>
             )}
           </div>
