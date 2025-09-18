@@ -1,15 +1,17 @@
 "use client";
+
 import { GradientButton } from "@/components/button";
 import { Card } from "@/components/ui/card";
 import CharacterWrapper from "@/components/ui/character-wrapper";
 import UnclassifiedBoard from "@/components/unclassified-board";
 import { UnclassifiedTask } from "@/lib/type";
 import { useState } from "react";
+import { unclassifiedTasks as initTasks } from "@/lib/dummy";
 
 export default function Page() {
   const [status, setStatus] = useState<"default" | "loading" | "done">("done");
   const [note, setNote] = useState("");
-  const [tasks, setTasks] = useState<UnclassifiedTask[]>([]);
+  const [tasks, setTasks] = useState<UnclassifiedTask[]>(initTasks);
 
   async function extractTasks() {
     setStatus("loading");
@@ -45,7 +47,7 @@ export default function Page() {
         </Card>
       </section>
       <section className="flex flex-col gap-8 items-center">
-        <UnclassifiedBoard />
+        <UnclassifiedBoard initTasks={tasks} />
       </section>
     </main>
   );

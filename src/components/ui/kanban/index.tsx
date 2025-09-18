@@ -29,9 +29,10 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import tunnel from "tunnel-rat";
-import { Card } from "@/components/ui/kanban/kanban-card";
 import { ScrollArea, ScrollBar } from "@/components/ui/sidebar/scroll-area";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import handler from "@/../public/icons/handler.svg";
 
 const t = tunnel();
 
@@ -118,31 +119,43 @@ export const KanbanCard = <T extends KanbanItemProps = KanbanItemProps>({
   return (
     <>
       <div style={style} {...attributes} ref={setNodeRef}>
-        <Card className={cn("gap-4 rounded-md p-3 shadow-sm", className)}>
-          {/* TODO handler */}
-          {children ?? <p className="m-0 font-medium text-sm">{name}</p>}
-          <div
-            {...listeners}
+        <li
+          className={cn(
+            "flex items-center gap-2.5 bg-gray-0 h-10 px-2.5 rounded-xl",
+            className
+          )}
+        >
+          <Image
             className={cn(
               "cursor-grab",
               isDragging && "pointer-events-none cursor-grabbing opacity-30"
             )}
-          >
-            handler
-          </div>
-        </Card>
+            {...listeners}
+            src={handler}
+            alt="handler"
+          />
+          {children ?? <p className="m-0 font-medium text-sm">{name}</p>}
+        </li>
       </div>
       {activeCardId === id && (
         <t.In>
-          <Card
+          <li
             className={cn(
-              "cursor-grab gap-4 rounded-md p-3 shadow-sm ring-2 ring-primary",
-              isDragging && "cursor-grabbing",
+              "flex items-center gap-2.5 bg-gray-0 h-10 px-2.5 rounded-xl",
               className
             )}
           >
+            <Image
+              className={cn(
+                "cursor-grab",
+                isDragging && "pointer-events-none cursor-grabbing opacity-30"
+              )}
+              {...listeners}
+              src={handler}
+              alt="handler"
+            />
             {children ?? <p className="m-0 font-medium text-sm">{name}</p>}
-          </Card>
+          </li>
         </t.In>
       )}
     </>
@@ -168,7 +181,7 @@ export const KanbanCards = <T extends KanbanItemProps = KanbanItemProps>({
     <ScrollArea>
       <SortableContext items={items}>
         <div
-          className={cn("flex flex-grow flex-col gap-2 p-2", className)}
+          className={cn("flex flex-grow flex-col gap-5", className)}
           {...props}
         >
           {filteredData.map(children)}

@@ -14,18 +14,22 @@ import "react-datepicker/dist/react-datepicker.css";
 
 interface Props {
   column: TaskColumn;
-  task: Task;
+  showDate?: boolean;
+  showCheckbox?: boolean;
+  initTask: Task;
   bulletColor: string;
 }
 
 export default function DragAndDropTask({
   column,
-  task: initTask,
   bulletColor,
+  initTask,
+  showCheckbox = false,
+  showDate = false,
 }: Props) {
   const [task, setTasks] = useState(initTask);
   const [edit, setEdit] = useState(false);
-  const ref = useRef<HTMLLIElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -52,53 +56,56 @@ export default function DragAndDropTask({
       name={task.name}
       className="border-none rounded-xl bg-gray-300"
     >
-      <li className="flex items-center gap-2.5 h-7" ref={ref}>
-        <span
-          className={cn("w-1.5 min-w-1.5 h-1.5 rounded-full", bulletColor)}
-        />
-        {edit ? (
-          <>
-            {/* TODO design */}
+      <div className="flex-1 flex items-center">
+        <div className="flex-1 flex items-center gap-1">
+          <span
+            className={cn("w-1.5 min-w-1.5 h-1.5 rounded-full", bulletColor)}
+          />
+          {edit ? (
             <input
               type="text"
-              className="tag-r-12"
+              className="tag-r-12 w-full"
               value={task.name}
               onChange={(e) =>
                 setTasks((prev) => ({ ...prev, name: e.target.value }))
               }
             />
-            <div>save</div>
-          </>
-        ) : (
-          <>
-            <span className="tag-r-12" onDoubleClick={() => setEdit(true)}>
+          ) : (
+            <span
+              className="tag-r-12 w-full"
+              onDoubleClick={() => setEdit(true)}
+            >
               {task.name}
             </span>
-            <Image
-              src={task.done ? checkbox_checked : checkbox}
-              alt="checkbox"
-              className="w-4 h-4 cursor-pointer"
-              onClick={() =>
-                setTasks((prev) => ({ ...prev, done: !prev.done }))
-              }
-            />
-            <DatePicker
-              className="flex items-center justify-center"
-              selected={task.due}
-              onChange={(date) =>
-                setTasks((prev) => ({ ...prev, due: date ?? undefined }))
-              }
-              customInput={
-                <Image
-                  src={task.due ? calendar_value : calendar}
-                  alt="calendar"
-                  className="w-6 h-6 p-0.5 pt-1.25 cursor-pointer"
-                />
-              }
-            />
-          </>
+          )}
+        </div>
+
+        {edit && <span className="font-normal text-[10px]">저장</span>}
+        {showCheckbox && (
+          <Image
+            src={task.done ? checkbox_checked : checkbox}
+            alt="checkbox"
+            className="w-4 h-4 cursor-pointer"
+            onClick={() => setTasks((prev) => ({ ...prev, done: !prev.done }))}
+          />
         )}
-      </li>
+        {showDate && (
+          <DatePicker
+            className="flex items-center justify-center"
+            selected={task.due}
+            onChange={(date) =>
+              setTasks((prev) => ({ ...prev, due: date ?? undefined }))
+            }
+            customInput={
+              <Image
+                src={task.due ? calendar_value : calendar}
+                alt="calendar"
+                className="w-6 h-6 p-0.5 pt-1.25 cursor-pointer"
+              />
+            }
+          />
+        )}
+      </div>
     </PrimitiveKanbanCard>
   );
 }
