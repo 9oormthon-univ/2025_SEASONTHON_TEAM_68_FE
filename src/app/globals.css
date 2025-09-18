@@ -144,6 +144,10 @@
   @apply font-semibold text-lg leading-[140%];
 }
 
+.title-sb-16 {
+  @apply font-semibold text-base leading-[140%];
+}
+
 .title-m-20 {
   @apply font-medium text-xl leading-[140%];
 }
@@ -174,4 +178,8 @@
 
 .tag-sb-12 {
   @apply font-semibold text-xs;
+}
+
+li::marker {
+  font-size: 0.75rem;
 }

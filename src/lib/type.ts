@@ -18,7 +18,7 @@ export type TaskType = {
 
 export type NoteType = {
   id: string;
-  summary: string;
+  summary: string[];
   content: string;
   guide: string;
   createdAt: Date;

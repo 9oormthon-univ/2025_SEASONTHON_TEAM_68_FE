@@ -101,14 +101,20 @@ export const unclassifiedTasks: TaskType[] = [
 export const notes: NoteType[] = [
   {
     id: "1",
-    summary: "Meeting with the design team",
+    summary: ["Meeting with the design team",
+      "Discussed homepage redesign"
+      , "Finalized color scheme"
+    ],
     content: "Discussed the new homepage design and finalized the color scheme.",
     guide: "Focus on user experience.",
     createdAt: new Date("2025-09-01"),
   },
   {
     id: "2",
-    summary: "Sprint planning session",
+    summary: ["Sprint planning session"
+      , "Planned tasks for next sprint"
+      , "Assigned responsibilities"
+    ],
     content: "Planned tasks for the next sprint and assigned responsibilities.",
     guide: "Focus on backend integration.",
     createdAt: new Date("2025-09-05"),

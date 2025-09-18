@@ -23,7 +23,7 @@ const items = [
   },
   {
     title: "회의록",
-    url: "/docs",
+    url: "/notes",
     icon: FileText,
   },
 ];
