@@ -36,6 +36,7 @@ export default function Page() {
         <DatePicker
           className="flex items-center justify-center"
           selected={date}
+          popperPlacement="top-end"
           onChange={(date) => setDate(date || new Date())}
           customInput={
             <Image
@@ -48,7 +49,7 @@ export default function Page() {
       </div>
       <KanbanProvider columns={columns} data={tasks} onDataChange={setTasks}>
         <div className="flex flex-col gap-[10.4px]">
-          <h3 className="title-sb-24">{date.getMonth()}월</h3>
+          <h3 className="title-sb-24">{date.getMonth() + 1}월</h3>
           <LateColumn />
         </div>
         <div className="flex flex-col items-center gap-5">

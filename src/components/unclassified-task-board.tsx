@@ -7,14 +7,16 @@ import Link from "next/link";
 import Button from "./button";
 import DragAndDropColumn from "./ui/drag-and-drop/column";
 import { KanbanProvider } from "./ui/kanban";
-import { tasks as initTasks } from "@/lib/dummy";
+import Alert from "@/../public/icons/alert.svg";
 import { useState } from "react";
+import Image from "next/image";
 
 interface Props {
   initTasks: TaskType[];
+  guide: { guide: string; tip: string };
 }
 
-export default function UnclassifiedTaskBoard({ initTasks }: Props) {
+export default function UnclassifiedTaskBoard({ initTasks, guide }: Props) {
   const [tasks, setTasks] = useState<TaskType[]>(initTasks);
   const columns = Array.from(registry.values()).filter(
     (col) => col.id === "DO" || col.id === "PLAN" || col.id === "DELEGATE"
@@ -31,6 +33,13 @@ export default function UnclassifiedTaskBoard({ initTasks }: Props) {
           <UnclassifiedTaskColumn key={column.id} column={column} />
         ))}
       </KanbanProvider>
+      <div className="w-full flex flex-col gap-2.5 px-10 py-7 bg-gray-0 border border-gray-500 rounded-2xl">
+        <span className="flex gap-4">
+          <Image src={Alert} alt="alert icon" />
+          <p>{guide.guide}</p>
+        </span>
+        <span>{guide.tip}</span>
+      </div>
       <Button variant="gradient" className="self-end" onClick={saveTasks}>
         <Link href="/done">저장하기 →</Link>
       </Button>

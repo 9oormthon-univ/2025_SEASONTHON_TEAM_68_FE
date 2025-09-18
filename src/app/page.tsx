@@ -4,7 +4,7 @@ import Character from "@/../public/images/character.svg";
 import Button from "@/components/button";
 import { Card } from "@/components/ui/card";
 import UnclassifiedTaskBoard from "@/components/unclassified-task-board";
-import { unclassifiedTasks as initTasks } from "@/lib/dummy";
+import { unclassifiedTasks as initTasks, guide } from "@/lib/dummy";
 import { TaskType } from "@/lib/type";
 import Image from "next/image";
 import { useState } from "react";
@@ -49,7 +49,7 @@ export default function Page() {
   }
 
   return (
-    <main className="w-full h-dvh flex flex-col justify-end p-12 gap-12">
+    <main className="w-full min-h-dvh flex flex-col justify-end p-12 gap-12">
       {status == "default" && (
         <div className="flex flex-col h-full items-center justify-center gap-8">
           <Image src={Character} alt="welcome image" />
@@ -104,7 +104,7 @@ export default function Page() {
       </section>
       {status === "done" && (
         <section className="flex flex-col gap-8 items-center">
-          <UnclassifiedTaskBoard initTasks={tasks} />
+          <UnclassifiedTaskBoard initTasks={tasks} guide={guide} />
         </section>
       )}
     </main>

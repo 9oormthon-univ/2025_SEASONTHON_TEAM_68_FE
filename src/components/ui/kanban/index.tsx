@@ -3,7 +3,7 @@
 import handler from "@/../public/icons/handler.svg";
 import { ScrollArea, ScrollBar } from "@/components/ui/sidebar/scroll-area";
 import { TaskColumnType, TaskType } from "@/lib/type";
-import { cn, columnToColor } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import type {
   Announcements,
   DndContextProps,
@@ -266,6 +266,8 @@ export const KanbanProvider = <
       const overIndex = newData.findIndex((item) => item.id === over.id);
 
       newData[activeIndex].column = overColumn;
+      newData[activeIndex].due = new Date(overColumn.slice(5));
+
       newData = arrayMove(newData, activeIndex, overIndex);
 
       onDataChange(newData);
@@ -289,6 +291,8 @@ export const KanbanProvider = <
 
     const oldIndex = newData.findIndex((item) => item.id === active.id);
     const newIndex = newData.findIndex((item) => item.id === over.id);
+
+    console.log(data);
 
     newData = arrayMove(newData, oldIndex, newIndex);
 

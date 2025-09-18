@@ -120,3 +120,8 @@ export const notes: NoteType[] = [
     createdAt: new Date("2025-09-05"),
   }
 ]
+
+export const guide: { guide: string; tip: string } = {
+  guide: "이번 회의에서 도출된 Action Item이 적네요. 더 효율적인 회의 방식을 함께 고민해보면 어떨까요?",
+  tip: "주기를 조정하거나 논의 방식을 바꿔보면 더 도움이 될 거예요.",
+}
