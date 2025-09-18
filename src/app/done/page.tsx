@@ -24,7 +24,6 @@ export default async function Page() {
           </Button>
         </div>
       </section>
-      {/* TODO calendar */}
     </main>
   );
 }

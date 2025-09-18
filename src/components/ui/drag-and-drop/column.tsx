@@ -34,7 +34,7 @@ export default function DragAndDropColumn({
         {(task: TaskType) => (
           <KanbanTask
             key={task.id}
-            initTask={task}
+            task={task}
             showCheckbox={showCheckbox}
             showDate={showDate}
             bgColor={taskBgColor}

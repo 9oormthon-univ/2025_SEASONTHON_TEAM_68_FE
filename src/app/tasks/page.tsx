@@ -81,7 +81,7 @@ function LateColumn() {
   const color = columnToColor(column.id);
 
   return (
-    <DragAndDropColumn column={column} taskBgColor="bg-gray-300" showCheckbox>
+    <DragAndDropColumn column={column} taskBgColor="bg-gray-0" showCheckbox>
       <Chip className={`${color["chip-bg"]} ${color["chip-text"]}`}>
         {column.en}
       </Chip>

@@ -45,12 +45,14 @@ type KanbanContextProps<
 > = {
   columns: C[];
   data: T[];
+  onDataChange: (data: T[]) => void;
   activeCardId: string | null;
 };
 
-const KanbanContext = createContext<KanbanContextProps>({
+const KanbanContext = createContext<KanbanContextProps<any, any>>({
   columns: [],
   data: [],
+  onDataChange: () => {},
   activeCardId: null,
 });
 
@@ -68,7 +70,7 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
   return (
     <div
       className={cn(
-        "flex size-full min-h-40 flex-col gap-7 divide-y rounded-md border bg-secondary text-xs shadow-sm ring-2 transition-all",
+        "flex size-full min-h-40 flex-col gap-7 divide-y rounded-md bg-secondary text-xs shadow-sm ring-2 transition-all",
         className
       )}
       ref={setNodeRef}
@@ -78,17 +80,22 @@ export const KanbanBoard = ({ id, children, className }: KanbanBoardProps) => {
   );
 };
 
-export type KanbanCardProps<T extends TaskType = TaskType> = T & {
-  children?: ReactNode;
+export type KanbanCardProps = {
+  id: string;
+  bgColor: string;
+  children: (
+    data: TaskType[],
+    onDataChange: (data: TaskType[]) => void
+  ) => ReactNode;
   className?: string;
 };
 
 export const KanbanCard = <T extends TaskType = TaskType>({
   id,
-  name,
+  bgColor,
   children,
   className,
-}: KanbanCardProps<T>) => {
+}: KanbanCardProps) => {
   const {
     attributes,
     listeners,
@@ -99,7 +106,10 @@ export const KanbanCard = <T extends TaskType = TaskType>({
   } = useSortable({
     id,
   });
-  const { activeCardId } = useContext(KanbanContext) as KanbanContextProps;
+  const { activeCardId, data, onDataChange } = useContext(
+    KanbanContext
+  ) as KanbanContextProps;
+  const item = data.find((item) => item.id === id) as T;
 
   const style = {
     transition,
@@ -111,7 +121,8 @@ export const KanbanCard = <T extends TaskType = TaskType>({
       <div style={style} {...attributes} ref={setNodeRef}>
         <li
           className={cn(
-            "flex items-center gap-2.5 bg-gray-0 h-10 px-2.5 rounded-xl",
+            "flex items-center gap-2.5 bg-gray-0 h-10 px-2.5 border-none rounded-xl",
+            item.done ? "bg-[#DBF8EB]" : bgColor,
             className
           )}
         >
@@ -124,7 +135,7 @@ export const KanbanCard = <T extends TaskType = TaskType>({
             src={handler}
             alt="handler"
           />
-          {children ?? <p className="m-0 font-medium text-sm">{name}</p>}
+          {children(data, onDataChange)}
         </li>
       </div>
       {activeCardId === id && (
@@ -144,7 +155,7 @@ export const KanbanCard = <T extends TaskType = TaskType>({
               src={handler}
               alt="handler"
             />
-            {children ?? <p className="m-0 font-medium text-sm">{name}</p>}
+            {children(data, onDataChange)}
           </li>
         </t.In>
       )}
@@ -165,8 +176,8 @@ export const KanbanCards = <T extends TaskType = TaskType>({
   children,
   className,
   ...props
-}: KanbanCardsProps<T>) => {
-  const { data } = useContext(KanbanContext) as KanbanContextProps<T>;
+}: KanbanCardsProps<TaskType>) => {
+  const { data } = useContext(KanbanContext) as KanbanContextProps<TaskType>;
   const filteredData = data.filter(column.filter);
   const items = filteredData.map((item) => item.id);
 
@@ -193,7 +204,7 @@ export type KanbanProviderProps<
   className?: string;
   columns: C[];
   data: T[];
-  onDataChange?: (data: T[]) => void;
+  onDataChange: (data: T[]) => void;
   onDragStart?: (event: DragStartEvent) => void;
   onDragEnd?: (event: DragEndEvent) => void;
   onDragOver?: (event: DragOverEvent) => void;
@@ -257,7 +268,7 @@ export const KanbanProvider = <
       newData[activeIndex].column = overColumn;
       newData = arrayMove(newData, activeIndex, overIndex);
 
-      onDataChange?.(newData);
+      onDataChange(newData);
     }
 
     onDragOver?.(event);
@@ -281,7 +292,7 @@ export const KanbanProvider = <
 
     newData = arrayMove(newData, oldIndex, newIndex);
 
-    onDataChange?.(newData);
+    onDataChange(newData);
   };
 
   const announcements: Announcements = {
@@ -310,7 +321,11 @@ export const KanbanProvider = <
   };
 
   return (
-    <KanbanContext.Provider value={{ columns, data, activeCardId }}>
+    <KanbanContext.Provider
+      value={
+        { columns, data, onDataChange, activeCardId } as KanbanContextProps<T>
+      }
+    >
       <DndContext
         accessibility={{ announcements }}
         collisionDetection={closestCenter}
